@@ -1,0 +1,53 @@
+.login {
+  background-image: linear-gradient(to bottom right, #f48882,  #c6fad2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__form {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background: rgba(#000, 0.2);
+
+    input {
+      height: 30px;
+      font-size: 16px;
+      border: 1px solid black;
+      color: #f48882;
+      outline: none !important;
+
+      &:hover {
+        border-color: #f48882;
+      }
+
+      &:focus {
+        border-color: #f48882;
+      }
+    }
+
+    button {
+      $button-color: #f48882;
+      margin-top: 20px;
+      height: 40px;
+      background-color: $button-color;
+      color: whitesmoke;
+      border: none;
+      font-size: 16px;
+      outline: none !important;
+      cursor: pointer;
+
+      &:active {
+        background-color: darken($button-color, 10%);
+      }
+    }
+
+    & :not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

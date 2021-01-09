@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.scss';
 import React, { Component } from "react";
 import axios from "axios";
+import { Login } from "./pages/login/Login";
 
 export default class App extends Component {
   state = {
@@ -20,19 +21,19 @@ export default class App extends Component {
     return (
         <Router>
           <div className='app__container'>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/about">About</Link>
-                </li>
-                <li>
-                  <Link to="/users">Users</Link>
-                </li>
-              </ul>
-            </nav>
+            {/*<nav>*/}
+            {/*  <ul>*/}
+            {/*    <li>*/}
+            {/*      <Link to="/">Home</Link>*/}
+            {/*    </li>*/}
+            {/*    <li>*/}
+            {/*      <Link to="/about">About</Link>*/}
+            {/*    </li>*/}
+            {/*    <li>*/}
+            {/*      <Link to="/users">Users</Link>*/}
+            {/*    </li>*/}
+            {/*  </ul>*/}
+            {/*</nav>*/}
 
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -44,17 +45,13 @@ export default class App extends Component {
                 <Users users={this.state.persons}/>
               </Route>
               <Route path="/">
-                <Home/>
+                <Login/>
               </Route>
             </Switch>
           </div>
         </Router>
     )
   }
-}
-
-function Home() {
-  return <h2>Home</h2>;
 }
 
 function About() {
