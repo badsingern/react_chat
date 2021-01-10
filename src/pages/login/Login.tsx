@@ -1,50 +1,63 @@
 import { useFormik } from "formik";
 import React from "react";
-import { Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import './Login.scss';
 
 interface FormProps {
     email: string;
     password: string;
-    handleInput: any;
+    handleSubmit: any;
 }
 
-const InputField = (props) => <input name={props.name} value={props.value} onChange={props.handleInput}/>;
-const SubmitButton = (props) => <Route render={({history}) => (
-    <button
-        type='submit'
-    >
-        Login
-    </button>
-)}/>;
+const InputField = ({name, value, type='text', onChangeHandler, errorMessage}) =>
+    <div className='login__form-input'>
+        <label htmlFor={name}>{name}</label>
+        <input name={name} type={type} value={value} onChange={onChangeHandler}/>
+        <p>{errorMessage}</p>
+    </div>;
 
-const LoginForm = ({email, password, handleInput}: FormProps) => {
+const SubmitButton = ({isFormValid}) => {
+    const styleClasses = `login__form-button ${!isFormValid && 'login__form-button--disabled'}`;
+
+    return (<button className={styleClasses} type='submit'>Login</button>);
+};
+
+const LoginForm = ({email, password, handleSubmit}: FormProps) => {
     const formik = useFormik({
         initialValues: {
-            email: '', password: ''
+            email, password
+        },
+        initialTouched: {
+            email: true,
+            password: true
         },
         validate: values => {
             const errors = {};
             if (!values.email) {
-                errors['email'] = 'Required';
+                errors['email'] = 'Email is required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-                errors['email'] = '\'Invalid email address';
+                errors['email'] = 'Invalid email address';
+            }
+
+            if(!values.password) {
+                errors['password'] = 'Password is required';
+            } else if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(values.password)) {
+                errors['password'] = 'Password must be from 6 to 20 char. contain uppercase, lowercase symbols and digits';
             }
 
             return errors;
         },
-        onSubmit: values => (formik.isValid && formik.isSubmitting) && console.log('Submitted')
+        onSubmit: () => (formik.isValid && formik.isSubmitting) && handleSubmit()
     });
 
     return (
         <div className='login'>
             <form className='login__form' onSubmit={formik.handleSubmit}>
-                <InputField name='email' value={formik.values.email} handleInput={formik.handleChange}/>
-                <p>{formik.errors.email}</p>
-                <InputField name='password' value={formik.values.password} handleInput={formik.handleChange}/>
-                <p>{formik.errors.email}</p>
-                {console.log(formik.errors)}
-                <SubmitButton/>
+                <InputField name='email' value={formik.values.email} onChangeHandler={formik.handleChange}
+                            errorMessage={formik.errors.email}/>
+                <InputField name='password' type={'password'} value={formik.values.password} onChangeHandler={formik.handleChange}
+                            errorMessage={formik.errors.password}/>
+                <SubmitButton isFormValid={formik.isValid}/>
             </form>
         </div>
     );
@@ -55,13 +68,21 @@ export class Login extends React.Component {
         this.setState((prevState) => ({...prevState, [event.target.name]: event.target.value}))
     }
 
+    handleSubmit = (event) => {
+        this.setState({redirect: '/chat'});
+    }
+
     state = {
         email: '',
         password: '',
-        handleInput: this.handleInput
+        handleSubmit: this.handleSubmit,
+        redirect: ''
     };
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
         return (
             <>
                 <LoginForm {...this.state} />

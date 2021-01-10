@@ -1,0 +1,56 @@
+.chat {
+  display: flex;
+}
+
+.conversation-tile {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(#fff, 0.5);
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__person {
+    font-size: 20px;
+  }
+}
+
+.conversation-list {
+  background-image: linear-gradient(to bottom right, #f48882, #c6fad2);
+  width: 30%;
+}
+
+.conversation-details {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to bottom right, #f48882, #c6fad2);
+  padding: 100px;
+  padding-bottom: 0;
+
+  span {
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 200px;
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
+
+  &__my-message {
+    align-self: flex-end;
+    background-color: whitesmoke;
+  }
+
+  &__friend-message {
+    align-self: flex-start;
+    background-color: #c6fad2;
+  }
+}

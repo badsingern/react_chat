@@ -1,21 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.scss';
 import React, { Component } from "react";
-import axios from "axios";
 import { Login } from "./pages/login/Login";
+import { Chat } from "./pages/chat/Chat";
 
 export default class App extends Component {
-  state = {
-    persons: []
-  }
-
-  componentDidMount() {
-    axios.get(`https://swapi.dev/api/people`)
-        .then(res => {
-          const persons = res.data.results;
-          this.setState({persons});
-        })
-  }
 
   render() {
     return (
@@ -41,8 +30,8 @@ export default class App extends Component {
               <Route path="/about">
                 <About/>
               </Route>
-              <Route path="/users">
-                <Users users={this.state.persons}/>
+              <Route path="/chat">
+                <Chat/>
               </Route>
               <Route path="/">
                 <Login/>
