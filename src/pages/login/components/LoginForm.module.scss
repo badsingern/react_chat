@@ -1,0 +1,19 @@
+@import "./src/styles/variables";
+
+.login {
+  background-image: $ChatBackground;
+  width: $fullWidth;
+  height: $fullHeight;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .form {
+    padding: $gutter * 5;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background: rgba($defaultColor, 0.2);
+  }
+}

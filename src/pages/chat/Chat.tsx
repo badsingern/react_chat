@@ -1,70 +1,77 @@
 import React from "react";
 import './Chat.scss';
-import axios from "axios";
+import { ConversationsList } from "./components/conversation-list/ConversationList";
+import { ConversationDetails } from "./components/conversation-details/ConversationDetails";
+import { LoadingSpinner } from "../../shared/components/loading-spinner/LoadingSpinner";
+import { Profile } from "../profile/Profile";
+import { getMessages, Message, ChatMessage, updateMessages } from "../../api/api";
 
-
-const ConversationTile = ({message, handleConversationSelect}) => {
-    return (
-        <div onClick={() => handleConversationSelect(message.id)} className='conversation-tile'>
-            <div className="conversation-tile__container">
-                <span className="conversation-tile__person">{message.conversationWith?.name}</span>
-                <span className="conversation-tile__message">{message.latestMessage?.message}</span>
-            </div>
-            <div className="conversation-tile__container">
-                <span className="conversation-tile__time">{message.latestMessage?.time}</span>
-            </div>
-        </div>
-    );
-};
-
-const ConversationsList = ({messages, handleConversationSelect}) => {
-    const list = messages.map((message) => (
-        <ConversationTile key={message.id} handleConversationSelect={handleConversationSelect} message={message}/>
-    ))
-
-    return (<div className='conversation-list'>{list}</div>);
-}
-
-const ConversationDetails = ({selectedConversation}) => {
-    return (
-        <div className="conversation-details">
-            {
-                selectedConversation?.chat.map((message) => (<span
-                    className={message.isMe ? 'conversation-details__my-message' : 'conversation-details__friend-message'}>
-                    {message.message}
-                </span>))
-            }
-        </div>
-    )
+interface ChatState {
+    messages: Message[],
+    selectedConversation: number,
+    loading: boolean
 }
 
 export class Chat extends React.Component {
-    state = {
-        messages: [] as any,
-        selectedConversation: null
+    state: ChatState = {
+        messages: [],
+        selectedConversation: -1,
+        loading: false
     }
 
-    componentDidMount() {
-        axios.get(`https://api.jsonbin.io/b/5ffb1c3b63bb30027e750f8c/latest`)
+    componentDidMount(): void {
+        this.setState({loading: true});
+        getMessages()
             .then(res => {
-                const messages = res.data.messages;
-                this.setState({messages});
+                const messages = res.messages;
+                this.setState({messages, loading: false});
             })
     }
 
-    handleConversationSelect = (id) => {
+    handleConversationSelect = (id: number): void => {
         this.setState({selectedConversation: id});
     };
 
+    addNewMessage = (message: string, id: number): void => {
+        if (!message) {
+            return;
+        }
+
+        const newMessage: ChatMessage  = {isMe: true, message, time: new Date().toLocaleString('lt-LT', {hour12: false})};
+        const deepCopyMessagesObject = JSON.parse(JSON.stringify(this.state.messages));
+        const currentMessage = deepCopyMessagesObject.find(m => m.id === id);
+
+        currentMessage.latestMessage = newMessage;
+        currentMessage.chat.push(newMessage);
+
+        updateMessages(deepCopyMessagesObject)
+            .then(res => {
+                const messages = res.messages;
+                this.setState({messages});
+            })
+    };
+
     render() {
-        const selectedConversation = this.state.messages.find(message => message.id === this.state.selectedConversation);
+        const selectedConversation = this.state.messages?.find(message => message.id === this.state.selectedConversation);
 
         return (
-            <div className='chat'>
-                <ConversationsList handleConversationSelect={this.handleConversationSelect}
-                                   messages={this.state.messages}/>
-                <ConversationDetails selectedConversation={selectedConversation}/>
-            </div>
+            <>
+                {
+                    this.state.loading
+                        ? <LoadingSpinner/>
+                        : <div className='chat'>
+                            <ConversationsList
+                                handleConversationSelect={this.handleConversationSelect}
+                                messages={this.state.messages}
+                            />
+                            <ConversationDetails
+                                addNewMessage={this.addNewMessage}
+                                selectedConversation={selectedConversation}
+                            />
+                            <Profile/>
+                        </div>
+                }
+            </>
         );
     }
 }

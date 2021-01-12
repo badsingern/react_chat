@@ -1,0 +1,19 @@
+@import "./src/styles/variables";
+
+.conversation-tile {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba($defaultColor, 0.5);
+  margin: $halfGutter 0;
+  padding: $halfGutter;
+  cursor: pointer;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__person {
+    font-size: $fontSizeLg;
+  }
+}

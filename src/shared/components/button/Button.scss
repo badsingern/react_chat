@@ -1,0 +1,20 @@
+.button {
+  $button-color: #f48882;
+  margin-top: 20px;
+  height: 40px;
+  background-color: $button-color;
+  color: whitesmoke;
+  border: none;
+  font-size: 16px;
+  outline: none !important;
+  cursor: pointer;
+
+  &:not(&--disabled):active {
+    background-color: darken($button-color, 10%);
+  }
+
+  &--disabled {
+    background-color: lighten($button-color, 10%);
+    cursor: default;
+  }
+}

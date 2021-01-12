@@ -1,0 +1,80 @@
+@import "./src/styles/variables";
+
+.conversation-details {
+  position: sticky;
+  top: 0;
+  height: $browserHeight;
+  width: $fullWidth;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $SelectedConversationViewBackground;
+  padding: $SelectedConversationViewPadding;
+  padding-bottom: 0;
+
+  &__conversation-header {
+    width: $fullWidth;
+
+    h2 {
+      border-bottom: 3px solid $SelectedConversationViewHeader;
+      width: $fullWidth;
+      text-align: center;
+      padding-bottom: $halfGutter;
+    }
+  }
+
+  span {
+    padding: $gutter;
+    border-radius: 10px;
+    width: $fullWidth / 2;
+    border: 1px solid transparent;
+    opacity: 0.8;
+    margin-bottom: $gutter * 2;
+  }
+
+  &__my-message {
+    align-self: flex-end;
+    background-color: $MyMessage;
+  }
+
+  &__friend-message {
+    align-self: flex-start;
+    background-color: $FriendMessage;
+  }
+
+  &__new-message {
+    position: absolute;
+    bottom: 0;
+    width: $fullWidth;
+
+    input {
+      border: 0;
+      height: 100px;
+      margin: 0;
+      vertical-align: bottom;
+      padding-left: $gutter * 2;
+    }
+
+    Button {
+      position: absolute;
+      height: $fullHeight;
+      right: 0;
+      top: 0;
+      margin: 0;
+      width: 200px;
+    }
+  }
+
+  &__conversation {
+    height: $fullHeight;
+    width: $fullWidth;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    margin-bottom: $gutter * 4;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

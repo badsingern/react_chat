@@ -1,0 +1,37 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    text-transform: capitalize;
+  }
+
+  input {
+    height: 30px;
+    font-size: 16px;
+    border: 1px solid black;
+    color: #f48882;
+    outline: none !important;
+    border-radius: 5px;
+
+    &:hover {
+      border-color: #f48882;
+    }
+
+    &:focus {
+      border-color: #f48882;
+    }
+  }
+
+  p {
+    margin: 0;
+    min-height: 20px;
+    color: red;
+  }
+
+  &:last-of-type {
+    p {
+      min-height: 65px;
+    }
+  }
+}

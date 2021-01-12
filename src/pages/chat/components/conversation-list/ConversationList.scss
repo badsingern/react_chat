@@ -1,0 +1,7 @@
+@import "./src/styles/variables";
+
+.conversation-list {
+  background-image: $ChatBackground;
+  width: $fullWidth / 3;
+  padding: $halfGutter;
+}
