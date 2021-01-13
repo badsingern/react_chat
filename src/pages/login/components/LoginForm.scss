@@ -1,4 +1,4 @@
-@import "./src/styles/variables";
+@import "../../../styles/Variables";
 
 .login {
   background-image: $ChatBackground;
@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  .form {
+  &__form {
     padding: $gutter * 5;
     display: flex;
     flex-direction: column;

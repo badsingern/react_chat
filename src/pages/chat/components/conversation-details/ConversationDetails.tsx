@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { SelectedConversationView } from "../selected-conversation-view/SelectedConversationView";
+import { Message } from "../../../../api/api";
 
 interface ConversationDetailsProps {
-    selectedConversation: any;
+    selectedConversation: Message | undefined;
     addNewMessage: (message: string, id: number) => void;
 }
 
@@ -15,7 +16,7 @@ const NoSelectedConversationView = () => (
 export const ConversationDetails = ({selectedConversation, addNewMessage}: ConversationDetailsProps) => {
     const [newMessage, setNewMessage] = useState('');
 
-    const handleInput = (value) => {
+    const handleInput = (value: string) => {
         setNewMessage(value);
     }
 

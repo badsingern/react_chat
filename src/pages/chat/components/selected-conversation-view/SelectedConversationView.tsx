@@ -2,11 +2,17 @@ import { InputField } from "../../../../shared/components/input-field/InputField
 import { Button } from "../../../../shared/components/button/Button";
 import React from "react";
 import './SelectedConversationView.scss';
-import { ChatMessage } from "../../../../api/api";
+import { ChatMessage, Message } from "../../../../api/api";
 
 
+interface SelectedConversationProps {
+    message: string;
+    handler: (value: string) => void;
+    selectedConversation: Message;
+    newMessageHandler: (message: string, id: number) => void;
+}
 
-const sortConversation = (conversation): ChatMessage[] => {
+const sortConversation = (conversation: Message): ChatMessage[] => {
     const sortedConversation = conversation?.chat.sort((a, b) => {
         const firstChunk = new Date(a.time);
         const lastChunk = new Date(b.time);
@@ -17,7 +23,12 @@ const sortConversation = (conversation): ChatMessage[] => {
     return sortedConversation;
 };
 
-export const SelectedConversationView = ({message, handler, selectedConversation, newMessageHandler}) => {
+export const SelectedConversationView = ({
+                                             message,
+                                             handler,
+                                             selectedConversation,
+                                             newMessageHandler
+                                         }: SelectedConversationProps) => {
     const sortedConversation = sortConversation(selectedConversation);
 
     return (

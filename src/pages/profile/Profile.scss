@@ -1,4 +1,4 @@
-@import "./src/styles/variables";
+@import "../../styles/Variables";
 
 .profile {
   position: fixed;
@@ -34,11 +34,31 @@
     flex-direction: column;
     align-items: center;
 
+    h2 {
+      padding-bottom: $halfGutter;
+      border-bottom: 3px solid $SelectedConversationViewHeader;
+    }
+
     Button {
       width: 100px;
-      //position: absolute;
       bottom: 0;
       margin-bottom: $gutter * 2;
+
+      &:first-child {
+        margin-right: $halfGutter;
+      }
+
+      &:last-child {
+        background-color: $defaultColor;
+        color: $inverseColor;
+        border: 1px solid $inverseColor;
+      }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      display: flex;
     }
   }
 }
@@ -48,7 +68,7 @@
   justify-content: center;
   height: $fullWidth;
 
-  &__form {
+  &__form, &__read-mode {
     position: relative;
     display: flex;
     flex-direction: column;

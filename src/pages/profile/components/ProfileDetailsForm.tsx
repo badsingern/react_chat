@@ -19,7 +19,6 @@ export const ProfileDetailsForm = ({name, surname, handleSubmit, handleModalClos
     });
 
     return (
-        <div className='profile-details'>
             <form className='profile-details__form' onSubmit={formik.handleSubmit}>
                 <InputField
                     name='name'
@@ -31,17 +30,18 @@ export const ProfileDetailsForm = ({name, surname, handleSubmit, handleModalClos
                     value={formik.values.surname}
                     onChangeHandler={formik.handleChange}
                 />
-                <Button
-                    isDisabled={false}
-                    text={'Save'}
-                />
-                <Button
-                    text={'Close'}
-                    isDisabled={false}
-                    buttonHandler={handleModalClose}
-                    type={'button'}
-                />
+                <footer>
+                    <Button
+                        isDisabled={false}
+                        text={'Save'}
+                    />
+                    <Button
+                        text={'Close'}
+                        isDisabled={false}
+                        buttonHandler={handleModalClose}
+                        type={'button'}
+                    />
+                </footer>
             </form>
-        </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ProfileDetailsForm } from "./ProfileDetails";
+import { ProfileDetailsForm } from "./ProfileDetailsForm";
+import { Button } from "../../../shared/components/button/Button";
 
 interface ModalProps {
     name: string;
@@ -15,18 +16,25 @@ export const Modal = ({name, surname, handleSubmit, handleModalClose}: ModalProp
         <div className='modal-overlay'>
             <div className='modal-content'>
                 <h2>Profile Details</h2>
+                <div className='profile-details'>
                 {isEditMode
                     ? <ProfileDetailsForm
                         name={name}
                         surname={surname}
                         handleSubmit={handleSubmit}
                         handleModalClose={handleModalClose}/>
-                    : <>
-                        <h4>{name}</h4>
-                        <h4>{surname}</h4>
-                        <button onClick={() => setEditMode(true)}>Edit</button>
-                    </>
+                    : <div className='profile-details__read-mode'>
+                        <data>
+                            <h4>Name: {name}</h4>
+                            <h4>Surname: {surname}</h4>
+                        </data>
+                        <footer>
+                            <Button text={'Edit'} isDisabled={false} type={'button'} buttonHandler={()=>{setEditMode(true)}}/>
+                            <Button text={'Close'} buttonHandler={handleModalClose} isDisabled={false}/>
+                        </footer>
+                    </div>
                 }
+                </div>
             </div>
         </div>
     );

@@ -1,20 +1,21 @@
+@import "./src/styles/Variables";
+
 .button {
-  $button-color: #f48882;
-  margin-top: 20px;
+  margin-top: $gutter;
   height: 40px;
-  background-color: $button-color;
+  background-color: $controlColor;
   color: whitesmoke;
   border: none;
-  font-size: 16px;
+  font-size: $fontSizeMd;
   outline: none !important;
   cursor: pointer;
 
   &:not(&--disabled):active {
-    background-color: darken($button-color, 10%);
+    background-color: darken($controlColor, 10%);
   }
 
   &--disabled {
-    background-color: lighten($button-color, 10%);
+    background-color: lighten($controlColor, 10%);
     cursor: default;
   }
 }

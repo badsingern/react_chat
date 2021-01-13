@@ -10,11 +10,11 @@ interface LoginState {
 }
 
 export class Login extends React.Component {
-    handleInput = (event) => {
+    handleInput = (event): void => {
         this.setState((prevState) => ({...prevState, [event.target.name]: event.target.value}))
     }
 
-    handleSubmit = () => {
+    handleSubmit = (): void => {
         this.setState({redirect: '/chat'});
     }
 

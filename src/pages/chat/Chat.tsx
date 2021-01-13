@@ -37,7 +37,11 @@ export class Chat extends React.Component {
             return;
         }
 
-        const newMessage: ChatMessage  = {isMe: true, message, time: new Date().toLocaleString('lt-LT', {hour12: false})};
+        const newMessage: ChatMessage = {
+            isMe: true,
+            message,
+            time: new Date().toLocaleString('lt-LT', {hour12: false})
+        };
         const deepCopyMessagesObject = JSON.parse(JSON.stringify(this.state.messages));
         const currentMessage = deepCopyMessagesObject.find(m => m.id === id);
 

@@ -3,7 +3,7 @@ import { InputField } from "../../../shared/components/input-field/InputField";
 import { Button } from "../../../shared/components/button/Button";
 import React from "react";
 import { loginValidationSchema } from "../Login.service";
-import styles from './LoginForm.module.scss';
+import './LoginForm.scss';
 
 interface LoginFormProps {
     email: string;
@@ -25,8 +25,8 @@ export const LoginForm = ({email, password, handleSubmit}: LoginFormProps) => {
     });
 
     return (
-        <div className={styles.login}>
-            <form className={styles.form} onSubmit={formik.handleSubmit}>
+        <div className='login'>
+            <form className='login__form' onSubmit={formik.handleSubmit}>
                 <InputField
                     name='email'
                     value={formik.values.email}
